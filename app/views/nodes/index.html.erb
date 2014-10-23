@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <% if  @nodes.empty? %>
+      <div class="col-md-12">
+        <h1>
+          No nodes in the system at present
+        </h1>
+      </div>
+    <% else %>
+      <table class="table table-stripped">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+        <% @nodes.each do |n| %>
+          <tr>
+            <td>
+              <strong><%= n.name_display %></strong>
+            </td>
+            <td>
+              <%= n.node.name_display %>
+            </td>
+
+
+
+  <%#div class="form-group">
+    <%#= n.label :node_attrtypes %>
+    <%#= n.select(:node_type_id, @node_attrtypes.map { |n| [n.name_display, n.id]}) %>
+  <%#/div %> 
+
+
+            <td>
+              <%= link_to 'Edit', edit_node_path(n) %> 
+              <%= link_to 'Delete', node_path(n), method: :delete %>
+            </td>
+
+            <td></td>
+           
+            <table>
+            <% n.node_attrbs.each do |nna| %>
+            
+            <!--%=byebug%-->
+            <tr>
+              <td>
+                <%#= nna.nodeattr[:name] %>
+                 <%= nna.nodeattr.name_display %>
+                <%= nna[:name] %>
+              </td>
+            <% end %>
+            </tr>
+            
+
+            </table>
+<br>
+
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <%= will_paginate @nodes %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <%= link_to "Add New Node", new_node_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+</div>

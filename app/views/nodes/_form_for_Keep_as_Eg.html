@@ -1,0 +1,40 @@
+<%#= byebug %>
+
+<%#= form_for @node, html: { class: 'well form', role: 'form' } do |f| %>
+<%= form_for @node, html: { class: 'well form', role: 'form' } do |person_form| %>
+ <%= render partial: 'shared/error_messages', object: @node %>
+
+<%# form_for @node do |person_form| %>
+
+  <%= person_form.label :name %>
+  <%= person_form.text_field :name_display %>
+
+
+<%#= byebug %>
+<h1>IVO_For: <%= @node.node_attrb.length %></h1>
+  <% #person_form.fields_for @node.node_attrb do |child_form| %>
+  <%= person_form.fields_for :node_attrb, @node.node_attrb do |child_form| %>
+
+    <%# if child_form.object.active? %>
+    <%#lookup_table_object_type[:name_display] %>
+          <%= child_form.label child_form.lookup_table_object_type[:name_display] %>
+          <%= child_form.text_field :name %>
+    <% # end %>
+
+
+
+    <%#= child_form.label :name %>
+    <%#= child_form.text_field :name %>
+
+    <%# unless child_form.object.new_record? %>
+      <% # Don't forget to name both of these '_destroy' in Rails 3 %>
+      <% # = child_form.check_box '_delete' %>
+      <% # = child_form.label '_delete', 'Remove' %>
+    <%# end %>
+
+
+  <% end %>
+<%# = byebug %>
+  <%= submit_tag %>
+<% end %>
+

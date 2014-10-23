@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value_float: MyString
+  nodes_id: MyString
+  node_attributes_id: MyString
+
+two:
+  value_float: MyString
+  nodes_id: MyString
+  node_attributes_id: MyString

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  node_attribute_type_id: 1
+  name: MyString
+  name_display: MyString
+  name_display_order: 1.5
+  node_type_id: 1
+
+two:
+  node_attribute_type_id: 1
+  name: MyString
+  name_display: MyString
+  name_display_order: 1.5
+  node_type_id: 1

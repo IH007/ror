@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lookup_type: MyString
+  name: MyString
+  name_display: MyString
+  name_display_order: 1.5
+
+two:
+  lookup_type: MyString
+  name: MyString
+  name_display: MyString
+  name_display_order: 1.5

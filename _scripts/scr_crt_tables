@@ -1,0 +1,15 @@
+ls
+#
+rails generate model Lookup lookup_type:string name:string name_display:string name_display_order:float --force
+#
+rails generate model  Node name_display:string node_type_id:integer users_id:integer --force
+#
+rails generate model  NodeNode parent_id:integer child_id:integer node_depth_type:integer non_unique:boolean --force 
+#
+rails generate model  NodeAttribute node_attribute_type_id:integer name:string name_display:string name_display_order:float node_type_id:integer --force
+#
+rails generate model NodeAttributeStringvalue value_string:string  nodes_id node_attributes_id --force
+#
+rails generate model NodeAttributeIntegervalue value_integer:integer nodes_id node_attributes_id --force
+#
+rails generate model NodeAttributeFloatvalue value_float nodes_id node_attributes_id --force
