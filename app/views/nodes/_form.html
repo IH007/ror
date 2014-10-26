@@ -1,65 +1,30 @@
 <%#= byebug %>
 
-<%#= form_for @node, html: { class: 'well form', role: 'form' } do |f| %>
 <%= form_for @node, html: { class: 'well form', role: 'form' } do |nform| %>
  <%= render partial: 'shared/error_messages', object: @node %>
 
-<%# form_for @node do |nform| %>
-
-  <%#= nform.label :name %>
-  <%#= nform.text_field :name_display %>
-
   <div class="form-group">
-    <%= nform.label :name_display, 'Node Name' %>
+    <%= nform.label :name_display, 'Item:' %>
     <%= nform.text_field :name_display, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= nform.label :node_type %>
+    <%= nform.label :node_type, 'Type:' %>
     <%= nform.select(:node_type_id, @node_types.map { |n| [n.name_display, n.id]}) %>
   </div>
 
-
   <h1>No of Items: <%= @node.node_attrbs.length %></h1>
 
-<%# byebug %>
- <%# if @node.node_attrbs.length > 0 %>
+  <%= puts @node.node_attrbs(:id) %>
 
- <%= puts @node.node_attrbs(:id) %>
-
- <% if @node.node_attrbs(:id) %>
-
-  <% @node.node_attrbs.each do |nae| %>
-  
-  <%#nform.fields_for @node.node_attrbs do |naefor| %>
-  <%#= nform.fields_for :node_attrbs, nae do |nafor| %>
-
-  <%= nform.fields_for :node_attrbs, nae do |nafor| %>
-
-  <%#= person_form.fields_for :node_attrbs, @node.node_attrbs do |child_form| %>
-    <%# if nafor.object.active? %>
-
-          <%#NodeAttrb.first.nodeattr[:name_display]%>
-
-          <%#= nafor.nodeattr.label :name_display %>
-        
-
-  <div class="form-group">
-    <%#= nafor.label :node_attrtypes %>
-    <%= nafor.select(:node_type_id, @node_attrtypes.map { |n| [n.name_display, n.id]}) %>
-  
-  <%# = form.link_to_add "[+] Add a task", :tasks %> 
-  <%#= nafor.link_to_add "Add New", :node_attrbs %>
-
-
-    <%#= link_to "Add New Node", new_node_path, class: 'btn btn-default' %>
- <%#= link_to 'Edit', edit_node_path(nae) %> 
-
-
- <%#= link_to 'Delete', node_path(nae), method: :delete %>
-
-
-  </div>
-
+  <% if @node.node_attrbs(:id) %>
+    <% @node.node_attrbs.each do |nae| %>
+      <%= nform.fields_for :node_attrbs, nae do |nafor| %>
+        <%# if nafor.object.active? %>
+        <%#NodeAttrb.first.nodeattr[:name_display]%>
+        <%#= nafor.nodeattr.label :name_display %>
+          <div class="form-group">
+            <%= nafor.select(:node_type_id, @node_attrtypes.map { |n| [n.name_display, n.id]}) %>
+          </div>
           <%#= nafor.label :name_display, nae.nodeattr.name_display %>
           <%= nafor.text_field :name %>
           <%# node_attrbs#destroy %>
@@ -67,20 +32,13 @@
           <%#= link_to 'Edit', [:edit, @node, @node_attrb] %>
           <%#= link_to 'Del', [:destroy, @node, @node_attrb] %>
           <%#= link_to 'New', [:new, @node, @node_attrb] %>
-           <%#= link_to 'New', @new_node_node_attrb %>
-
-           <%= link_to "Del", controller: "node_attrbs", action: "destroy", id: nae.id %>
-
-    <%# end %>
-  <% end %>
-
- <% end %>
-
- <% end %> <%# endif #>
-
-
-    <%#= nafor.label :name %>
-    <%#= nafor.text_field :name %>
+          <%#= link_to 'New', @new_node_node_attrb %>
+          <%= nafor.text_field :url_short,:readonly => true %>
+          <%= nafor.text_field :url_rank,:readonly => true %>
+          <%= link_to "Del", controller: "node_attrbs", action: "destroy", id: nae.id %>
+      <% end %>
+    <% end %>
+  <% end %> <%# endif #>
 
     <%# unless nafor.object.new_record? %>
       <%# Don't forget to name both of these '_destroy' in Rails 3 %>
@@ -91,13 +49,16 @@
 
   <%#= link_to 'New Attr', @new_node_node_attrb %>
   <%#= link_to 'New Attr', @new_node_node_attrb %>
-<%# byebug %>
-
-
-<%if @node[:id]  %> 
-     <%= link_to "New Attr", new_node_node_attrb_path(@node[:id]) %> 
-<% end %>
-
+  <%# byebug %>
+  <%if @node[:id]  %> 
+    <%= link_to "New Item", new_node_node_attrb_path(@node[:id]) %>
+    <br>
+    <%= "(URLs need a HTTP prefix)" %>
+    <br>
+    <%#= link_to "Save Updates",        edit_node_path(@node[:id]) %> 
+    <%#= link_to "Save Updates", nodes_path(@node[:id]), method: :edit %>
+  <% end %>
+  
   <br>
   <br>
   <%= submit_tag %>

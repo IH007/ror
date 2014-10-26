@@ -25,24 +25,6 @@ ActiveRecord::Schema.define(version: 20141017052312) do
     t.datetime "updated_at"
   end
 
-  create_table "models_OLD", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "models_OLD", ["email"], name: "index_models_on_email", unique: true, using: :btree
-  add_index "models_OLD", ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true, using: :btree
-
   create_table "node_attribute_floatvalues", force: true do |t|
     t.string   "value_float"
     t.string   "nodes_id"
@@ -67,12 +49,15 @@ ActiveRecord::Schema.define(version: 20141017052312) do
     t.datetime "updated_at"
   end
 
-  create_table "node_attributes", force: true do |t|
+  create_table "node_attrbs", force: true do |t|
     t.integer  "node_attribute_type_id"
     t.string   "name"
     t.string   "name_display"
     t.float    "name_display_order"
     t.integer  "node_type_id"
+    t.string   "url_rank"
+    t.integer  "node_id"
+    t.string   "url_short"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -88,11 +73,10 @@ ActiveRecord::Schema.define(version: 20141017052312) do
 
   create_table "nodes", force: true do |t|
     t.string   "name_display"
-    t.string   "node_type_id_OLD"
+    t.integer  "node_type_id"
     t.integer  "user_id"                #changed SSSSSSS
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "node_type_id"
   end
 
   create_table "users", force: true do |t|

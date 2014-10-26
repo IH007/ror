@@ -13,9 +13,10 @@ gem 'twitter-bootstrap-rails', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '~> 3.0'
 
-#require 'open-uri'
 
 gem 'PageRankr'
+gem 'url_validator', "~> 0.0.3"
+#gem 'validate_url'
 
 # Add our security related gem here
 gem 'devise', '~> 3.2'

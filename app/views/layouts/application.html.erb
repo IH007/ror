@@ -8,7 +8,15 @@
 </head>
 <body>
 
-<%= yield %>
+ <%= render 'layouts/user_widget' %>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+ <br>
+  
+  <%= yield %>
+
+ 
 
 </body>
+
 </html>

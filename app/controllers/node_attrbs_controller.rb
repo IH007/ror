@@ -3,7 +3,7 @@
 # specified actions
 #byebug
 class NodeAttrbsController < SecuredController
-  puts "xxxxxxx NodeAttr before_filter  xxxxxxx"
+  puts "xxxxxxx NodeAttrC before_filter  xxxxxxx"
   before_filter only: [ :new, :create, :edit, :update, :destroy] do
     @items = Lookup.where(lookup_type: 'item')
     #byebug
@@ -12,7 +12,7 @@ class NodeAttrbsController < SecuredController
   # Retrieves all the node_attrbs and responds to the URL /node_attrbs (GET verb)
   # renders the view /views/node_attrbs/index.html.erb by default
   def index
-    puts "xxxxxxx NodeAttr a:index xxxxxxx"
+    puts "xxxxxxx NodeAttrC a:index xxxxxxx"
     @node_attrbs = NodeAttrb.paginate(page: params[:page])
   end
 
@@ -24,7 +24,7 @@ class NodeAttrbsController < SecuredController
     # id = params[:id]
     # @node_attrb = NodeAttrb.find(id)
 
-    puts "xxxxxxx NodeAttr a:show - HACK for DEL xxxxxxx"
+    puts "xxxxxxx NodeAttrC a:show - HACK for DEL xxxxxxx"
 
     destroy
 
@@ -34,35 +34,49 @@ class NodeAttrbsController < SecuredController
 
   # Renders the new form for adding a node_attrb to the system
   # @node_attrb is used in the form for the binding process
+  ## "new" & "create" are used in pairs
+
   def new
     # byebug
-    puts "xxxxxxx NodeAttr a:new xxxxxxx"
+    puts "xxxxxxx NodeAttrC a:new xxxxxxx"
     
     id = params[:node_id]
-    @node = Node.find(id)
+    puts "1XXXXXXX params:", params
 
+    @node = Node.find(id)
+    puts "XXXXXXXXXX @node.to_yaml ",  @node.to_yaml 
+   
     @nodeattrb = @node.node_attrbs.new
-    #puts  @nodeattrb 
+    puts "XXXXXXXXXX @nodeattrb.to_yaml ",  @nodeattrb.to_yaml 
+
     @nodeid = @nodeattrb[:node_id]
-    #puts  @nodeid
+    puts "XXXXXXXXXX @nodeid.to_yaml ",  @nodeid.to_yaml
 
     if @nodeattrb.save
       flash[:success] = "NodeAttrb #{@nodeattrb.name} saved successfully."
-    redirect_to edit_node_path(@nodeid)
+      puts "XXXXXXXXXX nodeattrb SAVED - redirect_to edit_node_path(@nodeid) ", edit_node_path(@nodeid), "YYYYYYYYYY"
+      redirect_to edit_node_path(@nodeid)
+    else
+      flash[:failed] = "NodeAttrb failed to create"
+      puts "XXXXXXXXXX nodeattrb FAILED to SAVE  --redirect_to edit_node_path(@nodeid) ", edit_node_path(@nodeid), "YYYYYYYYYY"
+      redirect_to edit_node_path(@nodeid)
     end
-
-
 
   end
 
-  # Takes the node_attrb details and persists it to the database
+  # Takes the node_attrb details and persists it to the database  ## "new" & "create" are used in pairs
+  #! "new" & "create" are used in pairs
+
   def create
-  puts "xxxxxxx NodeAttr a:create xxxxxxx"
+  puts "xxxxxxx NodeAttrbsC a:create xxxxxxx"
     # Whitelisting is used to secure our actions from processing un-identified
     # parameters sent in the http request, this is a new Rails 4 feature
     @node_attrb = NodeAttrb.new(white_listed_params)
+    # debug
+    # @node_attrb[:user] = current_user 
     if @node_attrb.save
       flash[:success] = "NodeAttrb #{@node_attrb.name} saved successfully."
+      puts "XXXXXXXXXX redirect_to node_attrbs_path ",node_attrbs_path, "YYYYYYYYYY"
       redirect_to node_attrbs_path
     else
       render :new
@@ -76,7 +90,7 @@ class NodeAttrbsController < SecuredController
   end
 
   def update
-    puts "xxxxxxx NodeAttr a:update xxxxxxx"
+    puts "xxxxxxx NodeAttrC a:update xxxxxxx"
     @node_attrb = NodeAttrb.find(params[:id])
     if @node_attrb.update_attrbs(white_listed_params)
       flash[:success] = "NodeAttrb #{@node_attrb.name} updated successfully."
@@ -89,7 +103,7 @@ class NodeAttrbsController < SecuredController
 
   def destroy
 #byebug
-  puts "xxxxxxx NodeAttr a:destroy xxxxxxx"
+  puts "xxxxxxx NodeAttrC a:destroy xxxxxxx"
     @nodeattr = NodeAttrb.find_by_id(params[:id])
 
     if  @nodeattr
@@ -110,7 +124,7 @@ class NodeAttrbsController < SecuredController
   private
 
   def white_listed_params
-    puts "xxxxxxx NodeAttr white_listed_params xxxxxxx"
+    puts "xxxxxxx NodeAttrC white_listed_params xxxxxxx"
     params.require(:node_attrb).permit(:grade_type_id, :name)
   end
 

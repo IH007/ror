@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'nodes/index'
+  root 'nodes#index'
+
   devise_for :users
 ##  devise_for :users
 
@@ -7,14 +10,12 @@ Rails.application.routes.draw do
   # to view all this routes use the command rake routes
 
 
+	resources :nodes #, only: [:index , :show, :edit, :create, :update]
+	resources :node_attrbs #[:show] #, :new, :create, :edit, :update]
 
-  resources :nodes #, only: [:index , :show, :edit, :create, :update]
-  resources :node_attrbs #[:show] #, :new, :create, :edit, :update]
-
-
-resources :nodes do
-  resources :node_attrbs
-end
+	resources :nodes do
+	  resources :node_attrbs
+	end
 
   # resources :journals, only: [:index, :show, :new, :create, :edit, :update]
 end
