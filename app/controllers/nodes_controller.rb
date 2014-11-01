@@ -117,8 +117,8 @@ class NodesController < SecuredController
         urltest = url_valid?(urlcheck)
         #byebug 
         if urltest
-          n.url_short = "shorten_with_bitly(n.name)"
-          n.url_rank =  99 #"pageranking(urlcheck)"
+          n.url_short = shorten_with_bitly(urlcheck)
+          n.url_rank =  pageranking(urlcheck)
         else
           n.url_rank = nil
           n.url_short = "URL not valid"
@@ -211,10 +211,10 @@ class NodesController < SecuredController
     result = JSON.parse(buffer)
     #byebug
     short_url = result["results"][urlc]["shortUrl"]
-
   
     puts "###### Bitly ##############", short_url,result, buffer
 
+    short_url
   end
 
   def pageranking(urlp)
