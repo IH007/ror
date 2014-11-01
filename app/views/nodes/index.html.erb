@@ -8,9 +8,12 @@
         <br>
         <div>
           <strong><%= n.name_display %></strong>
-          <%= n.node.name_display %>
+          <%= '['%>
+          <%=  n.node.name_display  %>
+          <%= ']' %>
           <%= link_to 'Edit', edit_node_path(n) %> 
           <%= link_to 'Delete', node_path(n), method: :delete %>
+
         </div>
 
         <div class="container">
@@ -23,10 +26,10 @@
                     <tr>
               
                         <%#= nna.nodeattr[:name] %>
-                      <td>  <%= nna.nodeattr.name_display %></td>
-                      <td>  <%= nna[:name] %></td>
-                      <td>  <%= nna[:url_rank] %></td>
-                      <td>  <%= nna[:url_short] %></td>
+                      <td class="col-md-1">  <%= nna.nodeattr.name_display %></td>
+                      <td class="col-md-6">  <%= nna[:name] %>      </td>
+                      <td class="col-md-1">  <%= nna[:url_rank] %>  </td>
+                      <td class="col-md-4">  <%= nna[:url_short] %> </td>
                     
                     </tr>
                   <% end # end nna %>

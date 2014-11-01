@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # file used by the Router to evaluate the supported routes
   # to view all this routes use the command rake routes
 
+  #<%= link_to 'Patient Record', patient_path(@patient) %>
+  #get '/patients/:id', to: 'patients#show', as: 'patient'
+  post '/nodes/:id/update', to: 'nodes#update', as: 'nodeupdate'
 
 	resources :nodes #, only: [:index , :show, :edit, :create, :update]
 	resources :node_attrbs #[:show] #, :new, :create, :edit, :update]

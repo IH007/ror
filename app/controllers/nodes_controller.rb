@@ -32,9 +32,14 @@ class NodesController < SecuredController
   # Retrieves a single Node by id and responds to the URL /nodes/:id (GET Verb)
   # renders the view /views/nodes/show.html.erb by default
   def show
-    puts "xxxxxxx NodesC a:show xxxxxxx"
-    id = params[:id]
-    @node = Node.find(id)
+    # puts "xxxxxxx NodesC a:show xxxxxxx"
+    # id = params[:id]
+    # @node = Node.find(id)
+
+    puts "xxxxxxx NodesC a:show NEW xxxxxxx"
+    @node = Node.new
+    #@node.node_attrbs.build
+    #byebug
   end
 
   # Renders the new form for adding an Node to the system
@@ -44,8 +49,9 @@ class NodesController < SecuredController
     # @node = Node.new # orig 
     
     @node = Node.new
-    @node.node_attrbs.build
-
+    #@node.build ==> this does not work as there is m
+    #@node.node_attrbs.build
+    #byebug
   end
 
   # Takes the nodes details and persists it to the database
@@ -78,13 +84,14 @@ class NodesController < SecuredController
 
   # Find the corresponding Node and then render the edit form
   def edit #$$~used
-    puts "xxxxxxx NodesC a:edit xxxxxxx"
+    puts "xxxxxxx NodesC a:edit  xxxxxxx"
     @node = Node.find(params[:id])
   end
 
   def update #$$~used
     puts "xxxxxxx NodesC a:update xxxxxxx"
     @node = Node.find(params[:id])
+    puts "PPPPPPP params ", params, "RRRRRRRRRRYYYYYYYYYY"
     #byebug
     
     #if @node.update_attributes(white_listed_params)
@@ -110,8 +117,8 @@ class NodesController < SecuredController
         urltest = url_valid?(urlcheck)
         #byebug 
         if urltest
-          n.url_short = shorten_with_bitly(n.name)
-          n.url_rank = pageranking(urlcheck)
+          n.url_short = "shorten_with_bitly(n.name)"
+          n.url_rank =  99 #"pageranking(urlcheck)"
         else
           n.url_rank = nil
           n.url_short = "URL not valid"
@@ -136,8 +143,14 @@ class NodesController < SecuredController
     puts "7XXXXXXX debug @node.node_attrbs.inspect ", @node.node_attrbs.inspect , "YYYY object property YYYYYYYYYYYYYYYY"
     
     flash[:success] = "Node #{@node.name_display} updated successfully."
-    #render :edit 
-    redirect_to nodes_path
+    
+    if params[:xxxx]
+      render :edit 
+    else 
+      redirect_to nodes_path
+    end
+  
+
   end
 
   def destroy
@@ -199,15 +212,13 @@ class NodesController < SecuredController
     #byebug
     short_url = result["results"][urlc]["shortUrl"]
 
-    puts short_url
-    puts "################## Bitly ##############"
-    short_url
+  
+    puts "###### Bitly ##############", short_url,result, buffer
 
-    #@nodes = Node.paginate(page: params[:page])
   end
 
   def pageranking(urlp)
-    puts "################## page rank ##############"
+    puts "################ pageranking ##############"
     require 'page_rankr'
     
     #urlp = "www.google.com"
@@ -216,7 +227,7 @@ class NodesController < SecuredController
     p = pr[:google]
     
     puts 
-    puts "## page rank#####", "urlp:", urlp, "p:", p, "pr:", pr
+    puts "## pageranking #####", "urlp:", urlp, "p:", p, "pr:", pr
     p
   end
 

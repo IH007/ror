@@ -1,0 +1,72 @@
+<%#= byebug %>
+
+<%= form_for @node, html: { class: 'well form', role: 'form' } do |nform| %>
+ <%= render partial: 'shared/error_messages', object: @node %>
+
+  <div class="form-group">
+    <%#= nform.label :node_type, 'Type:' %>
+    <%= nform.select(:node_type_id, @node_types.map { |n| [n.name_display, n.id]}) %>
+    <%= nform.label :name_display, 'Item:' %>
+    <%#= nform.text_field :name_display, class: 'form-control' %>
+    <%= nform.text_field :name_display %>
+  </div>
+
+  <h3>No of Items: <%= @node.node_attrbs.length %></h3>
+
+  <%= puts @node.node_attrbs(:id) %>
+
+  <% if @node.node_attrbs(:id) %>
+
+
+
+    <% @node.node_attrbs.each do |nae| %>
+      <%= nform.fields_for :node_attrbs, nae do |nafor| %>
+        <%# if nafor.object.active? %>
+        <%#NodeAttrb.first.nodeattr[:name_display]%>
+        <%#= nafor.nodeattr.label :name_display %>
+          <div class="form-group">
+            <%= nafor.select(:node_type_id, @node_attrtypes.map { |n| [n.name_display, n.id]}) %>
+          <%#= nafor.label :name_display, nae.nodeattr.name_display %>
+          <%= nafor.text_field :name %>
+          <%# node_attrbs#destroy %>
+          <%#= link_to 'Edit Ad', [:edit, @magazine, @ad] %>
+          <%#= link_to 'Edit', [:edit, @node, @node_attrb] %>
+          <%#= link_to 'Del', [:destroy, @node, @node_attrb] %>
+          <%#= link_to 'New', [:new, @node, @node_attrb] %>
+          <%#= link_to 'New', @new_node_node_attrb %>
+          <%= nafor.text_field :url_short,:readonly => true %>
+          
+          <%= nafor.text_field :url_rank,:readonly => true %>
+       
+
+          <%#= link_to "Del", controller: "node_attrbs", action: "destroy", id: nae.id  did not work was a HACK with show%>
+          <%= link_to 'Del', node_attrb_path(nae), method: :delete %>
+          <%#= link_to 'Del', author_path(author), method: :delete %>
+          </div>
+     <% end %>
+    <% end %>
+  <% end %> <%# endif #>
+
+    <%# unless nafor.object.new_record? %>
+      <%# Don't forget to name both of these '_destroy' in Rails 3 %>
+      <%# = nafor.check_box '_delete' %>
+      <%# = nafor.label '_delete', 'Remove' %>
+    <%# end %>
+
+  <%#= link_to 'New Attr', @new_node_node_attrb %>
+  <%#= link_to 'New Attr', @new_node_node_attrb %>
+  <%# byebug %>
+  <%if @node[:id]  %> 
+  <h4>
+    <%= link_to "New Sub-Item", new_node_node_attrb_path(@node[:id]) %>
+  </h4>
+    <%= "(URLs need a HTTP prefix)" %>
+    <%#= link_to "Save Updates",        edit_node_path(@node[:id]) %><%# ?? this does not work%>
+    <%#= link_to "Save Updates", nodeupdate_path(@node[:id]), method: :update %><%# this works but full params list is not passed %>
+    <%= submit_tag "Save Updates", :name => "xxxx" %>
+  <% end %>
+  
+  <br>
+  <br>
+  <%= submit_tag "Save" %>
+<% end %>

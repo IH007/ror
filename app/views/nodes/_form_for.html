@@ -1,0 +1,66 @@
+<%#= byebug %>
+
+<%#= form_for @node, html: { class: 'well form', role: 'form' } do |f| %>
+<%= form_for @node, html: { class: 'well form', role: 'form' } do |person_form| %>
+ <%= render partial: 'shared/error_messages', object: @node %>
+
+<%# form_for @node do |person_form| %>
+
+  <%= person_form.label :name %>
+  <%= person_form.text_field :name_display %>
+
+
+<%#= byebug %>
+<h1>IVO_For: <%= @node.node_attrbs.length %></h1>
+  <% #person_form.fields_for @node.node_attrb do |child_form| %>
+  <%= person_form.fields_for :node_attrbs, @node.node_attrbs do |child_form| %>
+
+    <%# if child_form.object.active? %>
+    <%#lookup_table_object_type[:name_display] %>
+
+
+  <div class="form-group">
+    <%= child_form.select(:node_type_id, @node_attrtypes.map { |n| [n.name_display, n.id]}) %>
+
+          <%#= child_form.label child_form.node_type_id[:name_display] %>
+          <%= child_form.text_field :name %>
+          <%= child_form.text_field :url_short,:readonly => true %>
+          <%= child_form.text_field :url_rank,:readonly => true %>
+    <%# end %>
+
+
+  </div>
+
+
+
+
+
+    <%#= child_form.label :name %>
+    <%#= child_form.text_field :name %>
+
+    <%# unless child_form.object.new_record? %>
+      <%# Don't forget to name both of these '_destroy' in Rails 3 %>
+      <%# = child_form.check_box '_delete' %>
+      <%# = child_form.label '_delete', 'Remove' %>
+    <%# end %>
+
+<br>
+
+  <% end %>
+
+
+
+  <%if @node[:id]  %> 
+    <%= link_to "New sub-item", new_node_node_attrb_path(@node[:id]) %>
+    <%= "(URLs need a HTTP prefix)" %>
+    <br>
+    <%#= link_to "Save Updates",        edit_node_path(@node[:id]) %><%# ?? this does not work%>
+    <%#= link_to "Save Updates", nodeupdate_path(@node[:id]), method: :update %><%# this works but full params list is not passed %>
+    <%= submit_tag "Save Updates", :name => "xxxx" %>
+  <% end %>
+
+<%# = byebug %>
+<br><br>
+  <%= submit_tag "Save" %>
+<% end %>
+

@@ -11,20 +11,20 @@ class NodeAttrbsController < SecuredController
 
   # Retrieves all the node_attrbs and responds to the URL /node_attrbs (GET verb)
   # renders the view /views/node_attrbs/index.html.erb by default
-  def index
-    puts "xxxxxxx NodeAttrC a:index xxxxxxx"
+  def index # NOT USED 
+    puts "xxxxxxx NodeAttrC a:index NNNNN NOT USED xxxxxxx"
     @node_attrbs = NodeAttrb.paginate(page: params[:page])
   end
 
   # Retrieves a single node_attrb by id and responds to the URL /node_attrbs/:id (GET Verb)
   # renders the view /views/node_attrbs/show.html.erb by default
   
-  def show # this is HACK for the Del
+  def show # NOT USED 
+    puts "xxxxxxx NodeAttrC a:show - used for HACK for DEL but now fixed xxxxxxx"
+    
     # puts "xxxxxxx NodeAttr a:show xxxxxxx"
     # id = params[:id]
     # @node_attrb = NodeAttrb.find(id)
-
-    puts "xxxxxxx NodeAttrC a:show - HACK for DEL xxxxxxx"
 
     destroy
 
@@ -39,7 +39,7 @@ class NodeAttrbsController < SecuredController
   def new
     # byebug
     puts "xxxxxxx NodeAttrC a:new xxxxxxx"
-    
+    #byebug
     id = params[:node_id]
     puts "1XXXXXXX params:", params
 
@@ -47,7 +47,7 @@ class NodeAttrbsController < SecuredController
     puts "XXXXXXXXXX @node.to_yaml ",  @node.to_yaml 
    
     @nodeattrb = @node.node_attrbs.new
-    puts "XXXXXXXXXX @nodeattrb.to_yaml ",  @nodeattrb.to_yaml 
+    puts "XXXXXXXXXX @nodeattrb.to_yaml ", @nodeattrb.to_yaml 
 
     @nodeid = @nodeattrb[:node_id]
     puts "XXXXXXXXXX @nodeid.to_yaml ",  @nodeid.to_yaml
@@ -68,7 +68,7 @@ class NodeAttrbsController < SecuredController
   #! "new" & "create" are used in pairs
 
   def create
-  puts "xxxxxxx NodeAttrbsC a:create xxxxxxx"
+  puts "xxxxxxx NodeAttrbsC a:create NNNN NOT USED xxxxxxx"
     # Whitelisting is used to secure our actions from processing un-identified
     # parameters sent in the http request, this is a new Rails 4 feature
     @node_attrb = NodeAttrb.new(white_listed_params)
@@ -84,13 +84,13 @@ class NodeAttrbsController < SecuredController
   end
 
   # Find the corresponding author and then render the edit form
-  def edit
-    puts "xxxxxxx NodeAttr a:edit xxxxxxx"
+  def edit # NOT USED
+    puts "xxxxxxx NodeAttr a:edit  NNNN NOT USED  xxxxxxx"
     @node_attrb = NodeAttrb.find(params[:id])
   end
 
-  def update
-    puts "xxxxxxx NodeAttrC a:update xxxxxxx"
+  def update # NOT USED
+    puts "xxxxxxx NodeAttrC a:update  NNNN NOT USED xxxxxxx"
     @node_attrb = NodeAttrb.find(params[:id])
     if @node_attrb.update_attrbs(white_listed_params)
       flash[:success] = "NodeAttrb #{@node_attrb.name} updated successfully."
@@ -104,6 +104,8 @@ class NodeAttrbsController < SecuredController
   def destroy
 #byebug
   puts "xxxxxxx NodeAttrC a:destroy xxxxxxx"
+
+  #byebug
     @nodeattr = NodeAttrb.find_by_id(params[:id])
 
     if  @nodeattr
